@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Events\Userlogged;
+use App\Events\TaskStatusUpdated;
 use App\Notifications\NewVisitor;
 use App\Notifications\TelegramNotif;
 use App\Http\Controllers\HomeController;
@@ -29,6 +30,11 @@ Route::get('/', function () {
 });
 
 Route::get('/email/send', [SendMailController::class, 'sendMail']);
+
+Route::get('/broadcast', function() {
+    TaskStatusUpdated::dispatch();
+    return "Broadcast Success!";
+});
 
 Auth::routes();
 
